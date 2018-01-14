@@ -1,7 +1,7 @@
 import pandas as pd
 
-races = pd.read_csv('data/racesAll.csv', sep=',', encoding='latin-1')
-qualifications = pd.read_csv('data/qualifying.csv', sep=',', encoding='utf8')
+races = pd.read_csv('../data/racesAll.csv', sep=',', encoding='latin-1')
+qualifications = pd.read_csv('../data/qualifying.csv', sep=',', encoding='utf8')
 
 columns = [
     'raceId',
@@ -28,4 +28,4 @@ for _, race in races.iterrows():
 
         qualification_data.loc[len(qualification_data)] = rows
 
-qualification_data.to_csv("data/qualifyingFormated.csv", sep=',', encoding='latin-1', index=False)
+qualification_data.to_csv("../data/qualifyingFormated.csv", sep=',', encoding='latin-1', index=False)

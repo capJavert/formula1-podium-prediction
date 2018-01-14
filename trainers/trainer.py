@@ -38,7 +38,7 @@ class Model(object):
 
     def train(self):
 
-        clf = SVR(C=1.0, epsilon=0.1, cache_size=1000)
+        clf = SVR(C=1.0, epsilon=0.5, cache_size=1000, shrinking=True)
         X, y, = self._get_data('data/training_set-01.csv')
 
         # Fit the model
@@ -52,7 +52,7 @@ class Model(object):
         f.write(s)
         f.close()
 
-    def predict(self):
+    def predict(self, raceId):
         f = open('f1-finish_pos.model', 'rb')
         clf = pickle.loads(f.read())
         f.close()
@@ -99,23 +99,12 @@ class Model(object):
                     driver['data']
                 )
 
-        target_race = 977  # željeni raceId iz data/races.csv
-        target_driver = 8  # željeni driverId iz data/drivers.csv
-
-        # driver in race
-        """
-        for driver in races[target_race]:
-            if driver['id'] == target_driver:
-                print(driver["id"], target_race, driver["prediction"] <= 3, driver["prediction"], driver["finish_pos"])
-                break
-        """
+        podium = []
 
         # drivers for race
-        for driver in races[target_race]:
-            print(driver["id"], target_race, driver["prediction"] <= 3, driver["prediction"], driver["finish_pos"])
+        for driver in races[raceId]:
+            if driver["prediction"] <= 4:
+                podium.append(driver)
 
-
-if __name__ == '__main__':
-    trn = Model()
-    trn.train()
-    trn.predict()
+        # sort by position and return
+        return sorted(podium, key=lambda k: k['prediction'])

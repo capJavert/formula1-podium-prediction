@@ -1,0 +1,56 @@
+{% extends "layout/layout.html" %}
+{% block body %}
+    <br />
+
+    <form action="/" method="get">
+        <div class="input-field col s10">
+            <select name="race" id="races">
+                <option value="" disabled selected>Select race</option>
+                {% for (id, meta) in races.items() %}
+                    {% if (id == race) %}
+                    <option selected value="{{id}}">{{meta['name']}}</option>
+                    {% else %}
+                    <option value="{{id}}">{{meta['name']}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <label for="races">Race</label>
+        </div>
+        <input style="margin-top:20px;" class="col s2 waves-light btn" type="submit" value="Predict"/>
+    </form>
+
+    {% if podium %}
+    <div class="clearfix"></div>
+    <div class="collection">
+        <a href="{{races[race]['wiki']}}" class="collection-item">Wikipedia</a>
+    </div>
+
+    <div class="clearfix" style="margin-bottom: 200px;"></div>
+
+    <div class="driver col s4">
+        <div class="chip driver-second">
+             <img src="{{ url_for('static', filename='images/javert.png') }}" alt="">
+            {{podium[1]['name']}}
+        </div>
+    </div>
+    <div class="driver col s4">
+         <div class="chip driver-first ">
+             <img src="{{ url_for('static', filename='images/javert.png') }}" alt="">
+            {{podium[0]['name']}}
+        </div>
+    </div>
+    <div class="driver col s4">
+        <div class="chip driver-third">
+             <img src="{{ url_for('static', filename='images/javert.png') }}" alt="">
+            {{podium[2]['name']}}
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="podium second col s4">#2</div>
+    <div class="podium first col s4">#1</div>
+    <div class="podium third col s4">#3</div>
+    {% endif %}
+
+{% endblock %}

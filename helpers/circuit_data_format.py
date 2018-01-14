@@ -1,9 +1,9 @@
 import pandas as pd
 
-circuits = pd.read_csv('data/circuits.csv', sep=',', encoding='latin-1')
-finishes = pd.read_csv('data/driverStandings.csv', sep=',', encoding='utf8')
-races = pd.read_csv('data/races.csv', sep=',', encoding='latin-1')
-drivers = pd.read_csv('data/drivers.csv', sep=',', encoding='latin-1')
+circuits = pd.read_csv('../data/circuits.csv', sep=',', encoding='latin-1')
+finishes = pd.read_csv('../data/driverStandings.csv', sep=',', encoding='utf8')
+races = pd.read_csv('../data/races.csv', sep=',', encoding='latin-1')
+drivers = pd.read_csv('../data/drivers.csv', sep=',', encoding='latin-1')
 
 circuit_data_by_year = {}
 
@@ -18,4 +18,4 @@ for name, data_set in circuit_data_by_year.items():
     del data_set["positionText"]
     del data_set["points"]
 
-    data_set.to_csv("data/circuits/" + name + ".csv", sep=',', encoding='latin-1', index=False)
+    data_set.to_csv("../data/circuits/" + name + ".csv", sep=',', encoding='latin-1', index=False)
